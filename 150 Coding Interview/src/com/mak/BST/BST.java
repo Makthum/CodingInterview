@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.print.attribute.Size2DSyntax;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 public class BST {
@@ -23,6 +24,13 @@ public class BST {
 		test=BST.insert(12, test);
 		test=BST.insert(11, test);
 		test=BST.insert(13, test);
+		Node test1=insert(10, null);
+		test1=BST.insert(6, test1);
+		test1=BST.insert(5, test1);
+		test1=BST.insert(8, test1);
+		test1=BST.insert(112, test1);
+		test1=BST.insert(11, test1);
+		test1=BST.insert(13, test1);
 		printBST(test);
 		System.out.println("\n");
 	//	preorder(test);
@@ -30,6 +38,8 @@ public class BST {
 	//	postorder(test);
 		System.out.println(isBalanced(test));
 		levelOrderTraversal(test);
+		System.out.println(sizeOfTree(test));
+		System.out.println(isIdentical(test,test1));
 	}
 
 	public static Node insert(int data, Node root)
@@ -179,6 +189,39 @@ public class BST {
 		for(int j=0;j<i;j++)
 		{
 			System.out.print("\t");
+		}
+	}
+	
+	public static int sizeOfTree(Node root)
+	{
+		if(root!=null)
+		{
+			return sizeOfTree(root.left)+1+sizeOfTree(root.right);
+			
+		}
+		else
+			return 0;
+	}
+	public static boolean isIdentical(Node root1,Node root2)
+	{
+		if(root1!=null&& root2!=null)
+		{
+			if(root1.data==root2.data)
+			{
+				return isIdentical(root1.left, root2.left)&&isIdentical(root1.right, root2.right);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if(root1==null&&root2==null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 }
