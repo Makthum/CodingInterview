@@ -1,6 +1,8 @@
 package com.mak.BST;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -37,9 +39,12 @@ public class BST {
 	//	inorder(test);
 	//	postorder(test);
 		System.out.println(isBalanced(test));
-		levelOrderTraversal(test);
+		levelOrderTraversal(test1);
 		System.out.println(sizeOfTree(test));
 		System.out.println(isIdentical(test,test1));
+		mirrorTree(test1);
+		levelOrderTraversal(test1);
+		printPath(test1, new ArrayList<Integer>());
 	}
 
 	public static Node insert(int data, Node root)
@@ -222,6 +227,32 @@ public class BST {
 		else
 		{
 			return false;
+		}
+	}
+	
+	public static void mirrorTree(Node root)
+	{
+		if(root!=null)
+		{
+			Node temp=root.left;
+			root.left=root.right;
+			root.right=temp;
+			mirrorTree(root.left);
+			mirrorTree(root.right);
+		}
+	}
+	
+	public static void printPath(Node root,List<Integer> a)
+	{
+		if(root!=null)
+		{
+			a.add(root.data);
+			printPath(root.left, a);
+			printPath(root.right, a);
+			System.out.println(a);
+			a.remove((Integer)root.data);
+			
+			
 		}
 	}
 }
