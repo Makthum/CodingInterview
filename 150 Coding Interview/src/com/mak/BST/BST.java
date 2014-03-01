@@ -11,6 +11,8 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 public class BST {
 	public static int ht=0;
+	public static Node maxAncestor=null;
+	public static Node predecessor=null;
 	public static Queue<Node> q= new LinkedBlockingQueue<Node>();
 	
 
@@ -45,6 +47,9 @@ public class BST {
 		mirrorTree(test1);
 		levelOrderTraversal(test1);
 		printPath(test1, new ArrayList<Integer>());
+		System.out.println(inorderSuccessor(test, 11).data);
+		System.out.println(inorderPred(test, 11).data);
+
 	}
 
 	public static Node insert(int data, Node root)
@@ -254,5 +259,79 @@ public class BST {
 			
 			
 		}
+	}
+	
+	public static Node inorderSuccessor(Node root,int val)
+	{
+		if(root!=null)
+		{
+		if(root.data==val)
+		{
+			if(root.right!=null)
+			{
+				return minValue(root.right);
+			}
+			else
+			{
+				return maxAncestor;
+			}
+			
+		}
+		
+		else if(root.data<val)
+		{
+			return inorderSuccessor(root.right, val);
+		}
+		else
+		{
+			maxAncestor=root;
+			return inorderSuccessor(root.left, val);
+		}
+		
+		}
+		else
+			return null;
+	}
+	
+	public static Node minValue(Node root)
+	{
+		if(root==null)
+			return null;
+		else
+		{
+			if(root.left!=null)
+				return minValue(root.left);
+			else
+				return root;
+		}
+	}
+	
+	public static Node inorderPred(Node root,int val)
+	{
+		if(root==null)
+			return null;
+		if(root.data==val)
+		{
+			if(root.left!=null)
+				return maxValue(root.left);
+			else
+				return predecessor;
+		}
+		if(root.data>val)
+			return inorderPred(root.left, val);
+		else
+		{
+			predecessor=root;
+			return inorderPred(root.right, val);
+		}
+	}
+	public static Node maxValue(Node root)
+	{
+		if(root==null)
+			return null;
+		if(root.right!=null)
+			return maxValue(root.right);
+		else
+			return root;
 	}
 }
