@@ -52,6 +52,7 @@ public class BST {
 		//System.out.println(inorderSuccessor(test, 11).data);
 		//System.out.println(inorderPred(test, 11).data);
 		InorderTraversalwithRecu(test);
+		PreorderTraversalwithRecu(test);
 
 		sumtree(test);
 		levelOrderTraversal(test);
@@ -373,6 +374,31 @@ public class BST {
 				{
 				node=s.pop();
 				System.out.println(node.data);
+				node=node.right;
+				}
+			}
+		}
+	}
+	public static void PreorderTraversalwithRecu(Node node)
+	{
+		boolean done=false;
+		while(!done)
+		{
+			
+			if(node!=null)
+			{
+				System.out.println(node.data);
+
+				s.add(node);
+				node=node.left;
+			}
+			else
+			{
+				if(s.isEmpty())
+				done=true;
+				else
+				{
+				node=s.pop();
 				node=node.right;
 				}
 			}
