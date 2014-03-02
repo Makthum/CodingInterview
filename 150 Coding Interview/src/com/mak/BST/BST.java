@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.print.attribute.Size2DSyntax;
@@ -14,7 +15,8 @@ public class BST {
 	public static Node maxAncestor=null;
 	public static Node predecessor=null;
 	public static Queue<Node> q= new LinkedBlockingQueue<Node>();
-	
+	public static Stack<Node> s= new Stack<Node>();
+			
 
 	/**
 	 * @param args
@@ -47,8 +49,12 @@ public class BST {
 		mirrorTree(test1);
 		levelOrderTraversal(test1);
 		printPath(test1, new ArrayList<Integer>());
-		System.out.println(inorderSuccessor(test, 11).data);
-		System.out.println(inorderPred(test, 11).data);
+		//System.out.println(inorderSuccessor(test, 11).data);
+		//System.out.println(inorderPred(test, 11).data);
+		InorderTraversalwithRecu(test);
+
+		sumtree(test);
+		levelOrderTraversal(test);
 
 	}
 
@@ -333,5 +339,43 @@ public class BST {
 			return maxValue(root.right);
 		else
 			return root;
+	}
+	
+	
+	public static int sumtree(Node root)
+	{
+		if(root==null)
+			return 0;
+		else 
+		{
+			int old=root.data;
+			root.data=sumtree(root.left)+sumtree(root.right);
+			return old+root.data;
+		}
+	}
+	
+	public static void InorderTraversalwithRecu(Node node)
+	{
+		boolean done=false;
+		while(!done)
+		{
+			
+			if(node!=null)
+			{
+				s.add(node);
+				node=node.left;
+			}
+			else
+			{
+				if(s.isEmpty())
+				done=true;
+				else
+				{
+				node=s.pop();
+				System.out.println(node.data);
+				node=node.right;
+				}
+			}
+		}
 	}
 }
